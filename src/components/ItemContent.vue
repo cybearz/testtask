@@ -2,7 +2,7 @@
 	<div class="content">
 		<span class="header"> {{ item.name }}</span>
 
-		<div class="detail" v-for="attr in innerItem.attributes" :key="attr.code">
+		<div class="detail" v-for="attr in innerItem?.attributes" :key="attr.code">
 			<div class="field">
 				<span class="title">code:</span>
 				<input :value="attr.code"/>
@@ -13,12 +13,12 @@
 				<input :value="attr.name"/>
 			</div>
 
-			<div v-if="attr.color" class="field">
+			<div v-if="'color' in attr" class="field">
 				<span class="title">color:</span>
 				<input :value="attr.color"/>
 			</div>
 
-			<div v-if="attr.size" class="field">
+			<div v-if="'size' in attr" class="field">
 				<span class="title">size:</span>
 				<span>
 					<input :value="attr.size.width" type="number"/> x <input :value="attr.size.height" type="number"/>
@@ -26,7 +26,7 @@
 
 			</div>
 
-			<div v-if="attr.weight" class="field">
+			<div v-if="'weight' in attr" class="field">
 				<span class="title">weight:</span>
 				<input :value="attr.weight" type="number"/>
 			</div>
@@ -43,7 +43,7 @@
 				</select>
 			</label>
 
-			<button @click="emit('click', selectRef.value)">
+			<button @click="emit('click', selectRef?.value)">
 				Add
 			</button>
 		</div>
@@ -53,30 +53,31 @@
 
 <script setup lang="ts">
 import {defineProps, defineEmits, ref, watch} from "vue";
+import type { Product } from './types';
 
 
 const props = defineProps<{
-	item: {
-		id: number;
-		name: string;
-		attributes: {
-			code: string;
-			name: string;
-		};
-	}
+	item: Product;
 }>();
 
 const emit = defineEmits(['click']);
 
-const selectRef = ref<HTMLSelectElement>();
+const selectRef = ref<HTMLSelectElement | null>(null);
 
 
-const innerItem = ref(props.item);
+const innerItem = ref<Product | null>(null)
 
 
-watch(props.item, () => {
-	innerItem.value = props.item;
-})
+watch(
+	() => props.item,
+	(item) => {
+		innerItem.value = {
+			...item,
+			attributes: [...item.attributes],
+		}
+	},
+	{ immediate: true, deep: true }
+)
 </script>
 
 <style scoped lang="css">

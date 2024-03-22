@@ -9,20 +9,17 @@
 
 <script setup lang="ts">
 import {defineProps, defineEmits, ref} from 'vue';
-
+import type { Product } from './types';
 
 defineProps<{
-	items: {
-		id: string;
-		name: string;
-	}[];
+	items: Product[];
 }>();
 
 const emit = defineEmits(['click']);
 
-const selectedItem = ref();
+const selectedItem = ref<Product>();
 
-const onClick = (item: any) => {
+const onClick = (item: Product) => {
 	selectedItem.value = item;
 	emit('click', item);
 }

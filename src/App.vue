@@ -11,17 +11,20 @@ import ItemList from './components/ItemList.vue';
 import ItemContent from './components/ItemContent.vue';
 import Data from './components/mockData';
 import {ref} from "vue";
+import type { Product } from './components/types';
 
 const data = ref(Data);
 
 
-const selectedItem = ref();
+const selectedItem = ref<Product>();
 
 
-const onClick = (value: any) => {
-
+const onClick = (value: string) => {
+	console.log("Click", value)
 	switch (value) {
 		case 'color': {
+				console.log("color")
+
 			selectedItem.value?.attributes.push({
 				code: 'new code',
 				name: 'new field',
