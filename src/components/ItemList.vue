@@ -1,29 +1,27 @@
+<script setup lang="ts">
+import { defineEmits, defineProps } from "vue"
+import type { Product } from "@/types"
+
+const emit = defineEmits(["update:modelValue"])
+defineProps<{
+	modelValue: Product | null
+	items: Product[]
+}>()
+</script>
+
 <template>
 	<div class="list">
-		<span v-for="(item, i) in items" :key="i" class="item" :class="{ itemSelected: item === selectedItem}" @click="() => onClick(item)">
+		<span
+			v-for="item in items"
+			:key="item.id"
+			class="item"
+			:class="{ itemSelected: item.id === modelValue?.id }"
+			@click="emit('update:modelValue', item)"
+		>
 			{{ item.name }}
 		</span>
 	</div>
-
 </template>
-
-<script setup lang="ts">
-import {defineProps, defineEmits, ref} from 'vue';
-import type { Product } from './types';
-
-defineProps<{
-	items: Product[];
-}>();
-
-const emit = defineEmits(['click']);
-
-const selectedItem = ref<Product>();
-
-const onClick = (item: Product) => {
-	selectedItem.value = item;
-	emit('click', item);
-}
-</script>
 
 <style lang="css">
 .list {
