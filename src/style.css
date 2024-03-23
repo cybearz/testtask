@@ -1,0 +1,10 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body,
+h3 {
+	margin: 0;
+}

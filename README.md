@@ -1,24 +1,10 @@
 # testtask
 
-## Project setup
-```
-yarn install
-```
+### Доработки
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- Unit-тесты
+- Отдельный компонент для аттрибутов или формы
+- Добавить стили, индикацию загрузку
+- Валидация формы
+- Добавить кнопку в форму
+- Компонент InputWrapper

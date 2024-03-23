@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineEmits, defineProps } from "vue"
 import type { Product } from "@/types"
 
 const emit = defineEmits(["update:modelValue"])
